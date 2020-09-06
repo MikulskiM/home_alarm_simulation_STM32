@@ -78,26 +78,24 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		button_used = false;
 		button_clicked = BUTTON_ENTER_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
 		HAL_TIM_Base_Start_IT(&htim1);
-		/*if(state == OFF)
-		{
-			HAL_TIM_Base_Start_IT(&htim10);
-		}*/
 	}
 	else if(GPIO_Pin == BUTTON_DOOR_Pin && button_used == true)			// DOOR
 	{
 		button_used = false;
 		button_clicked = BUTTON_DOOR_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
 		HAL_TIM_Base_Start_IT(&htim1);
-		/*if(state == READY)
-		{
-			HAL_TIM_Base_Start_IT(&htim10);
-		}*/
 	}
 	else if(GPIO_Pin == BUTTON_WINDOW_Pin && button_used == true)		// WINDOW
 	{
 		button_used = false;
 		button_clicked = BUTTON_WINDOW_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
 		HAL_TIM_Base_Start_IT(&htim1);
 	}
 	else
@@ -116,6 +114,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			if(button_clicked == BUTTON_ENTER_Pin)
 			{
 				changed = false;
+
+				/*
+				 *  TU BEDZIE SPRAWDZANIE POPRAWONOSCI KODU DO ALARMU
+				 */
+
 				state = TIME10S;
 
 				__HAL_TIM_CLEAR_IT(&htim5 ,TIM_IT_UPDATE);
