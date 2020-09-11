@@ -173,15 +173,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 		else if(htim->Instance == TIM1)	// DEBAUNCING	ENTER
 		{
-			if(button_clicked == BUTTON_ENTER_Pin)
+			if(button_clicked == BUTTON_ENTER_Pin)	// jeœli w stanie Ready_door_open zostanie wykryte przerwanie do przycisku ENTER
 			{
-				changed = false;
-				state = OFF;
+				HAL_TIM_Base_Stop_IT(&htim5);		// zatrzymaj timer 5 ¿eby nie pojawi³o siê te¿ przerwanie po 10 sekundach
 
-				HAL_TIM_Base_Stop_IT(&htim10);
+				changed = false;
+				state = OFF;						// zmieñ stan na OFF
 
 				button_used = true;
-				HAL_TIM_Base_Stop_IT(&htim1);
+				HAL_TIM_Base_Stop_IT(&htim1);		// zatrzymaj timer odpowiedzialny za debouncing
 			}
 		}
 	}
