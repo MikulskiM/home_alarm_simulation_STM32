@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "lcd_i2c.h"
+#include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
 /* USER CODE END Includes */
@@ -97,11 +98,98 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
 		HAL_TIM_Base_Start_IT(&htim1);
+	}																	// --------------------- PRZYCISKI NUMERYCZNE
+	else if(GPIO_Pin == BUTTON_0_Pin && button_used == true)		// 0
+	{
+		button_used = false;
+		button_clicked = BUTTON_0_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_1_Pin && button_used == true)		// 1
+	{
+		button_used = false;
+		button_clicked = BUTTON_1_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_2_Pin && button_used == true)		// 2
+	{
+		button_used = false;
+		button_clicked = BUTTON_2_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_3_Pin && button_used == true)		// 3
+	{
+		button_used = false;
+		button_clicked = BUTTON_3_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_4_Pin && button_used == true)		// 4
+	{
+		button_used = false;
+		button_clicked = BUTTON_4_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_5_Pin && button_used == true)		// 5
+	{
+		button_used = false;
+		button_clicked = BUTTON_5_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_6_Pin && button_used == true)		// 6
+	{
+		button_used = false;
+		button_clicked = BUTTON_6_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_7_Pin && button_used == true)		// 7
+	{
+		button_used = false;
+		button_clicked = BUTTON_7_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_8_Pin && button_used == true)		// 8
+	{
+		button_used = false;
+		button_clicked = BUTTON_8_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
+	}
+	else if(GPIO_Pin == BUTTON_9_Pin && button_used == true)		// 9
+	{
+		button_used = false;
+		button_clicked = BUTTON_9_Pin;
+
+		__HAL_TIM_CLEAR_IT(&htim1 ,TIM_IT_UPDATE);
+		HAL_TIM_Base_Start_IT(&htim1);
 	}
 	else
 	{
 		__NOP();	// Generuje kod maszynowy specyficzny dla platformy, który nie wykonuje operacji. "No Operation Performed"
 	}
+}
+
+void enter_password(char x){
+	password[0] = password[1];		// previous password = "----"
+	password[1] = password[2];		// next 	password = "---0"
+	password[2] = password[3];		// next x2	password = "--02"
+	password[3] = x;				//		...
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
@@ -113,16 +201,76 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 			if(button_clicked == BUTTON_ENTER_Pin)
 			{
-				changed = false;
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
 
-				/*
-				 *  TU BEDZIE SPRAWDZANIE POPRAWONOSCI KODU DO ALARMU
-				 */
+				// int equal = strcmp(password, password_correct);
+				if(password[0] == '0' && password[1] == '0' && password[2] == '0' && password[3] == '0'){
+					state = TIME10S;
+					changed = false;
 
-				state = TIME10S;
+					__HAL_TIM_CLEAR_IT(&htim5 ,TIM_IT_UPDATE);
+					HAL_TIM_Base_Start_IT(&htim5);
 
-				__HAL_TIM_CLEAR_IT(&htim5 ,TIM_IT_UPDATE);
-				HAL_TIM_Base_Start_IT(&htim5);
+					enter_password('-');
+				}
+			}
+			if(button_clicked == BUTTON_0_Pin){
+				enter_password('0');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_1_Pin){
+				enter_password('1');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_2_Pin){
+				enter_password('2');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_3_Pin){
+				enter_password('3');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_4_Pin){
+				enter_password('4');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_5_Pin){
+				enter_password('5');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_6_Pin){
+				enter_password('6');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_7_Pin){
+				enter_password('7');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_8_Pin){
+				enter_password('8');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_9_Pin){
+				enter_password('9');
 
 				button_used = true;
 				HAL_TIM_Base_Stop_IT(&htim1);
@@ -173,12 +321,77 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 		else if(htim->Instance == TIM1)	// DEBAUNCING	ENTER
 		{
+			if(button_clicked == BUTTON_0_Pin){
+				enter_password('0');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_1_Pin){
+				enter_password('1');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_2_Pin){
+				enter_password('2');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_3_Pin){
+				enter_password('3');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_4_Pin){
+				enter_password('4');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_5_Pin){
+				enter_password('5');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_6_Pin){
+				enter_password('6');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_7_Pin){
+				enter_password('7');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_8_Pin){
+				enter_password('8');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_9_Pin){
+				enter_password('9');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
 			if(button_clicked == BUTTON_ENTER_Pin)	// jeœli w stanie Ready_door_open zostanie wykryte przerwanie do przycisku ENTER
 			{
-				HAL_TIM_Base_Stop_IT(&htim5);		// zatrzymaj timer 5 ¿eby nie pojawi³o siê te¿ przerwanie po 10 sekundach
+				// int equal = strcmp(password, password_correct);
+				if(password[0] == '0' && password[1] == '0' && password[2] == '0' && password[3] == '0'){
+					HAL_TIM_Base_Stop_IT(&htim5);		// zatrzymaj timer 5 ¿eby nie pojawi³o siê te¿ przerwanie po 10 sekundach
 
-				changed = false;
-				state = OFF;						// zmieñ stan na OFF
+					changed = false;
+					state = OFF;						// zmieñ stan na OFF
+
+					enter_password('-');
+				}
 
 				button_used = true;
 				HAL_TIM_Base_Stop_IT(&htim1);		// zatrzymaj timer odpowiedzialny za debouncing
@@ -189,10 +402,74 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		if(htim->Instance == TIM1)	// DEBAUNCING	ENTER
 		{
+			if(button_clicked == BUTTON_0_Pin){
+				enter_password('0');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_1_Pin){
+				enter_password('1');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_2_Pin){
+				enter_password('2');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_3_Pin){
+				enter_password('3');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_4_Pin){
+				enter_password('4');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_5_Pin){
+				enter_password('5');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_6_Pin){
+				enter_password('6');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_7_Pin){
+				enter_password('7');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_8_Pin){
+				enter_password('8');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
+			if(button_clicked == BUTTON_9_Pin){
+				enter_password('9');
+
+				button_used = true;
+				HAL_TIM_Base_Stop_IT(&htim1);
+			}
 			if(button_clicked == BUTTON_ENTER_Pin)
 			{
-				changed = false;
-				state = OFF;
+				if(password[0] == '0' && password[1] == '0' && password[2] == '0' && password[3] == '0'){
+					changed = false;
+					state = OFF;
+
+					enter_password('-');
+				}
 
 				button_used = true;
 				HAL_TIM_Base_Stop_IT(&htim1);
@@ -260,7 +537,18 @@ int main(void)
 	  			  // htim2.Instance->CCR1 = 0;
 
 	  			  sprintf((char*)disp.f_line, "OFF");
-	  			  sprintf((char*)disp.s_line, "   ");
+
+	  			char target[10];
+
+	  			strncpy(target, password, 4);
+	  			target[4] = ' ';
+	  			target[5] = ' ';
+	  			target[6] = ' ';
+				target[7] = ' ';
+				target[8] = ' ';
+				target[9] = '\0';
+
+	  			  sprintf((char*)disp.s_line, target);
 	  			  lcd_display(&disp);
 	  	  }
 	  	  else if(state == LOUD)
@@ -268,7 +556,7 @@ int main(void)
 	  			  // htim2.Instance->CCR1 = 5;
 
 	  			  sprintf((char*)disp.f_line, "LOUD");
-	  			  sprintf((char*)disp.s_line, "   ");
+	  			  sprintf((char*)disp.s_line, password);
 	  			  lcd_display(&disp);
 	  	  }
 	  	  else if(state == TIME10S)
@@ -276,7 +564,7 @@ int main(void)
 	  			  // htim2.Instance->CCR1 = 0;
 
 	  			  sprintf((char*)disp.f_line, "TIME10s");
-	  			  sprintf((char*)disp.s_line, "   ");
+	  			  //sprintf((char*)disp.s_line, "   ");
 	  			  lcd_display(&disp);
 	  	  }
 	  	  else if(state == READY)
@@ -284,15 +572,15 @@ int main(void)
 	  			  // htim2.Instance->CCR1 = 0;
 
 	  			  sprintf((char*)disp.f_line, "READY");
-	  			  sprintf((char*)disp.s_line, "   ");
+	  			  //sprintf((char*)disp.s_line, "   ");
 	  			  lcd_display(&disp);
 	  	  }
 	  	  else if(state == READY_door_open)
 	  	  {
 	  			  // htim2.Instance->CCR1 = 0;
 
-	  			  sprintf((char*)disp.f_line, "READY");
-	  			  sprintf((char*)disp.s_line, "(door)");
+	  			  sprintf((char*)disp.f_line, "READY(door)");
+	  			  //sprintf((char*)disp.s_line, "(door)");
 	  			  lcd_display(&disp);
 	  	  }
     /* USER CODE BEGIN 3 */

@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=D:/STM_projects/10s_TIMER_TEST/Inc
+HeaderPath=D:/STM_projects/SYSTEM_ALARMOWY_v3/Inc
 HeaderFiles=gpio.h;i2c.h;tim.h;stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;
-SourcePath=D:/STM_projects/10s_TIMER_TEST/Src
+SourcePath=D:/STM_projects/SYSTEM_ALARMOWY_v3/Src
 SourceFiles=gpio.c;i2c.c;tim.c;stm32f4xx_it.c;stm32f4xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

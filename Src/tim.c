@@ -56,8 +56,7 @@ void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
-  __HAL_TIM_CLEAR_FLAG(&htim1, TIM_SR_UIF);//Add this statement to solve the problem
-  //htim7.Instance->SR = 0; //This is another solution
+
 }
 /* TIM5 init function */
 void MX_TIM5_Init(void)
@@ -86,8 +85,7 @@ void MX_TIM5_Init(void)
   {
     Error_Handler();
   }
-  __HAL_TIM_CLEAR_FLAG(&htim5, TIM_SR_UIF);//Add this statement to solve the problem
-  //htim7.Instance->SR = 0; //This is another solution
+
 }
 /* TIM10 init function */
 void MX_TIM10_Init(void)
@@ -104,8 +102,6 @@ void MX_TIM10_Init(void)
     Error_Handler();
   }
 
-  __HAL_TIM_CLEAR_FLAG(&htim10, TIM_SR_UIF);//Add this statement to solve the problem
-  //htim7.Instance->SR = 0; //This is another solution
 }
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
