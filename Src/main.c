@@ -525,6 +525,8 @@ int main(void)
 
   lcd_init(&disp);
 
+  HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -533,56 +535,96 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	  if(state == OFF)
-	  	  {
-	  			  // htim2.Instance->CCR1 = 0;
+	  	  	  {
+	  	  			  htim10.Instance->CCR1 = 0;
 
-	  			  sprintf((char*)disp.f_line, "OFF");
+	  	  			  sprintf((char*)disp.f_line, "OFF");
 
-	  			char target[10];
+	  	  			char target[10];
 
-	  			strncpy(target, password, 4);
-	  			target[4] = ' ';
-	  			target[5] = ' ';
-	  			target[6] = ' ';
-				target[7] = ' ';
-				target[8] = ' ';
-				target[9] = '\0';
+	  	  			strncpy(target, password, 4);
+	  	  			target[4] = ' ';
+	  	  			target[5] = ' ';
+	  	  			target[6] = ' ';
+	  				target[7] = ' ';
+	  				target[8] = ' ';
+	  				target[9] = '\0';
 
-	  			  sprintf((char*)disp.s_line, target);
-	  			  lcd_display(&disp);
-	  	  }
-	  	  else if(state == LOUD)
-	  	  {
-	  			  // htim2.Instance->CCR1 = 5;
+	  	  			  sprintf((char*)disp.s_line, target);
+	  	  			  lcd_display(&disp);
+	  	  	  }
+	  	  	  else if(state == LOUD)
+	  	  	  {
+	  	  		  	  htim10.Instance->CCR1 = 20;
 
-	  			  sprintf((char*)disp.f_line, "LOUD");
-	  			  sprintf((char*)disp.s_line, password);
-	  			  lcd_display(&disp);
-	  	  }
-	  	  else if(state == TIME10S)
-	  	  {
-	  			  // htim2.Instance->CCR1 = 0;
+	  	  			  sprintf((char*)disp.f_line, "LOUD");
+	  		  			char target[10];
 
-	  			  sprintf((char*)disp.f_line, "TIME10s");
-	  			  //sprintf((char*)disp.s_line, "   ");
-	  			  lcd_display(&disp);
-	  	  }
-	  	  else if(state == READY)
-	  	  {
-	  			  // htim2.Instance->CCR1 = 0;
+	  		  			strncpy(target, password, 4);
+	  		  			target[4] = ' ';
+	  		  			target[5] = ' ';
+	  		  			target[6] = ' ';
+	  					target[7] = ' ';
+	  					target[8] = ' ';
+	  					target[9] = '\0';
 
-	  			  sprintf((char*)disp.f_line, "READY");
-	  			  //sprintf((char*)disp.s_line, "   ");
-	  			  lcd_display(&disp);
-	  	  }
-	  	  else if(state == READY_door_open)
-	  	  {
-	  			  // htim2.Instance->CCR1 = 0;
+	  		  			  sprintf((char*)disp.s_line, target);
+	  	  			  lcd_display(&disp);
+	  	  	  }
+	  	  	  else if(state == TIME10S)
+	  	  	  {
+	  	  		  	  htim10.Instance->CCR1 = 0;
 
-	  			  sprintf((char*)disp.f_line, "READY(door)");
-	  			  //sprintf((char*)disp.s_line, "(door)");
-	  			  lcd_display(&disp);
-	  	  }
+	  	  			  sprintf((char*)disp.f_line, "TIME10s");
+	  		  			char target[10];
+
+	  		  			strncpy(target, password, 4);
+	  		  			target[4] = ' ';
+	  		  			target[5] = ' ';
+	  		  			target[6] = ' ';
+	  					target[7] = ' ';
+	  					target[8] = ' ';
+	  					target[9] = '\0';
+
+	  		  			  sprintf((char*)disp.s_line, target);
+	  	  			  lcd_display(&disp);
+	  	  	  }
+	  	  	  else if(state == READY)
+	  	  	  {
+	  	  		  	  	htim10.Instance->CCR1 = 0;
+
+	  	  			  sprintf((char*)disp.f_line, "READY");
+	  		  			char target[10];
+
+	  		  			strncpy(target, password, 4);
+	  		  			target[4] = ' ';
+	  		  			target[5] = ' ';
+	  		  			target[6] = ' ';
+	  					target[7] = ' ';
+	  					target[8] = ' ';
+	  					target[9] = '\0';
+
+	  		  			  sprintf((char*)disp.s_line, target);
+	  	  			  lcd_display(&disp);
+	  	  	  }
+	  	  	  else if(state == READY_door_open)
+	  	  	  {
+	  	  		  	  htim10.Instance->CCR1 = 0;
+
+	  	  			  sprintf((char*)disp.f_line, "READY(door)");
+	  		  			char target[10];
+
+	  		  			strncpy(target, password, 4);
+	  		  			target[4] = ' ';
+	  		  			target[5] = ' ';
+	  		  			target[6] = ' ';
+	  					target[7] = ' ';
+	  					target[8] = ' ';
+	  					target[9] = '\0';
+
+	  		  			  sprintf((char*)disp.s_line, target);
+	  	  			  lcd_display(&disp);
+	  	  	  }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
